@@ -1,0 +1,457 @@
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#css2dRenderer,
+#css3dRenderer {
+    position: absolute;
+    top: 0;
+    height: 0 !important;
+    overflow: initial !important;
+    z-index: 9;
+}
+
+.beilu_icon_div {
+    transform: translate(-50%, -130%) !important;
+    position: absolute;
+    height: 28px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 28px;
+    background-image: url("./assets/textures/building.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.beilu_icon_down {
+    transform: translate(-50%, -100%) !important;
+    position: absolute;
+}
+.beilu_three_Board_text_person {
+    width: auto !important;
+    height: auto;
+    padding: 6px 16px;
+    background: rgba(23, 32, 52, 0.4) linear-gradient(180deg, #3b507c 0%, rgba(0, 0, 0, 0.5) 100%);
+    white-space: nowrap;
+    display: inline-block;
+    /* box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+		border-radius: 1px; */
+    position: absolute;
+    letter-spacing: 2px;
+    border: 1px solid #4d95ad;
+    transform: translate(-50%, -50%) scale(1);
+    /* border-image: linear-gradient(180deg, rgba(233, 255, 253, 1), rgba(47, 215, 193, 1), rgba(8, 106, 93, 1), rgba(18, 107, 105, 1), rgba(47, 211, 215, 1)) 1 1; */
+    font-size: 12px;
+    font-family: YouSheBiaoTiHei;
+    color: #ffffff;
+    line-height: 12px;
+    bottom: 24px;
+    text-shadow: 0px 0px 5px #55a7c2;
+    cursor: pointer;
+}
+.red_three_Board_text_person {
+    width: auto !important;
+    height: auto;
+    padding: 6px 16px;
+    background: rgba(241, 12, 61, 0.4) linear-gradient(180deg, #7c3b47 0%, rgba(0, 0, 0, 0.5) 100%);
+    white-space: nowrap;
+    display: inline-block;
+    /* box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+		border-radius: 1px; */
+    position: absolute;
+    letter-spacing: 2px;
+    border: 1px solid #4d95ad;
+    transform: translate(-50%, -50%) scale(1);
+    /* border-image: linear-gradient(180deg, rgba(233, 255, 253, 1), rgba(47, 215, 193, 1), rgba(8, 106, 93, 1), rgba(18, 107, 105, 1), rgba(47, 211, 215, 1)) 1 1; */
+    font-size: 12px;
+    font-family: YouSheBiaoTiHei;
+    color: #ffffff;
+    line-height: 12px;
+    bottom: 24px;
+    text-shadow: 0px 0px 5px #55a7c2;
+}
+
+.beilu_three_Board_text_person_top {
+    width: 33px;
+    height: 1px;
+    background: #40c5f1;
+
+    left: 50%;
+    margin-left: -16.5px;
+    position: absolute;
+    top: -1.2px;
+}
+
+.beilu_three_Board_text_person_bottom {
+    background: url("/textures/orientation/titleTop.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: 19px;
+    height: 4px;
+    left: 50%;
+    margin-left: -9.5px;
+    position: absolute;
+    bottom: -2.8px;
+}
+
+.beilu_three_Board_text_person_bottom_down {
+    background: url("/textures/orientation/titleBottom.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+    width: 14px;
+    height: 6px;
+    position: absolute;
+    left: 50%;
+    margin-left: -7px;
+    bottom: -12px;
+}
+
+
+.beilu_three_Board_text_person_yellow {
+  width: auto !important;
+  height: auto;
+  padding: 2px 8px;
+  background: linear-gradient(180deg, #4E4727 0%, #212300 100%);
+  white-space: nowrap;
+  display: inline-block;
+  box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+  border-radius: 16px;
+  position: absolute;
+  border: 1px solid #EFEC2B;
+  transform: translate(-50%, -50%) scale(1);
+  font-size: 12px;
+  font-family: AlibabaPuHuiTiR;
+  color: #FFFFFF;
+  line-height: 17px;
+  bottom: 26px;
+  cursor: pointer;
+ }
+ .beilu_three_Board_text_person_orange {
+  width: auto !important;
+   height: auto;
+   padding: 2px 8px;
+   background: linear-gradient(180deg, #4E3B27 0%, #230D00 100%);
+   white-space: nowrap;
+   display: inline-block;
+   box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+   border-radius: 16px;
+   position: absolute;
+   border: 1px solid #FF7E13;
+   transform: translate(-50%, -50%) scale(1);
+   font-size: 12px;
+   font-family: AlibabaPuHuiTiR;
+   color: #FFFFFF;
+   line-height: 17px;
+   bottom: 26px;
+   cursor: pointer;
+ }
+ .beilu_three_Board_text_person_red {
+  width: auto !important;
+   height: auto;
+   padding: 2px 8px;
+   background: linear-gradient(180deg, #4E2727 0%, #230000 100%);
+   white-space: nowrap;
+   display: inline-block;
+   box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+   border-radius: 16px;
+   position: absolute;
+   border: 1px solid #FF1313;
+   transform: translate(-50%, -50%) scale(1);
+   font-size: 12px;
+   font-family: AlibabaPuHuiTiR;
+   color: #FFFFFF;
+   line-height: 17px;
+   bottom: 26px;
+   cursor: pointer;
+ }
+ .beilu_three_Board_text_gather {
+  width: auto ;
+  height: 116px;
+  background: rgba(8,3,0,0.42);
+  border-radius: 63px;
+  border: 1px solid #D72F2F;
+  backdrop-filter: blur(4px);
+  padding:24px 36px;
+  box-sizing: border-box;
+  color: #fFF;
+  letter-spacing: 2px;
+  line-height: 26px;
+ }
+ .beilu_three_Board_text_gather_span {
+  width: 8px;
+  height: 8px;
+  display:block;
+  float:left;
+  line-height:10px;
+  margin-top:10px;
+  margin-right:12px;
+  border-radius:50%
+ }
+
+ .beilu_three_Board_text_gather_down_yellow {
+  background: url("/public/textures/gather_yellow.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+  bottom: -24px;
+ }
+ .beilu_three_Board_text_gather_down_orange {
+  background: url("/public/textures/gather_orange.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+   bottom: -24px;
+ }
+ .beilu_three_Board_text_gather_down_red {
+  background: url("/public/textures/gather_red.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+   bottom: -20px;
+ }
+
+ .beilu_three_Board_text_person_bottom_down_yellow {
+  background: url("/public/textures/yellowIcon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+  bottom: -20px;
+ }
+ .beilu_three_Board_text_person_bottom_down_orange {
+  background: url("/public/textures/orangeIcon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+   bottom: -20px;
+ }
+ .beilu_three_Board_text_person_bottom_down_red {
+  background: url("/public/textures/redIcon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 20px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+   bottom: -20px;
+ }
+
+.ellipse-container {
+    position: relative;
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 8px;
+    /* 根据需要调整 padding 值 */
+    border-radius: 50%;
+    background: rgba(23, 32, 52, 0.4) linear-gradient(180deg, #3b507c 0%, rgba(0, 0, 0, 0.5) 100%);
+    color: #fff;
+    border: 1px solid #4d95ad;
+    bottom: 2px;
+}
+#labelOut {
+    position: relative;
+    transform: translate(-50%, -50%);
+}
+
+
+.by_label_b {
+    position: relative;
+    height: 29px;
+    background: linear-gradient(270deg, #175b87 0%, #2c77b5 47%, #155a87 100%);
+    border-radius: 4px;
+    text-align: center;
+    line-height: 29px;
+    color: #fff;
+    padding: 0 32px;
+}
+.by_label_b_danger {
+    position: relative;
+    height: 29px;
+    background: linear-gradient(270deg, #871717 0%, #b54a2c 47%, #871515 100%);
+    border-radius: 4px;
+    text-align: center;
+    line-height: 29px;
+    color: #fff;
+    padding: 0 32px;
+}
+.by_arrow_left {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.by_arrow_right {
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.beiLuBoxSelect {
+    width: auto;
+    height: auto;
+    background: rgba(18, 87, 91, 0.8);
+    border: 1px solid #0666af;
+    border-radius: 2px;
+    position: absolute;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: PingFang SC;
+    color: #ffffff;
+    padding: 4px 8px;
+    display: inline-block;
+    border-image: linear-gradient(
+            180deg,
+            rgba(233, 255, 253, 1),
+            rgba(47, 215, 193, 1),
+            rgba(8, 106, 93, 1),
+            rgba(18, 107, 105, 1),
+            rgba(47, 211, 215, 1)
+        )
+        1 1;
+    white-space: nowrap;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+.person-sprite-container {
+    cursor: pointer;
+    position: absolute;
+    pointer-events: none;
+}
+
+.person-sprite-insidePerson,.person-sprite-externalPerson,.person-sprite-laborPerson{
+  position: relative;
+  color: white;
+  transform: translate(0, -200%) scale(0.75);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  pointer-events: none;
+  border: 1px;
+  padding: 2px 2px 2.8px 4px;
+  height: 16px;
+  line-height: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.person-sprite-insidePerson {
+    background: rgb(20, 77, 44, 0.7);
+    box-shadow: inset 0px 0px 5px 0px #57b67e;
+}
+.person-sprite-externalPerson {
+    background: rgba(75, 25, 65, 0.7);
+    box-shadow: inset 0px 0px 4px 0px #ffbaff;
+}
+.person-sprite-laborPerson {
+    background: rgba(120, 105, 39, 0.7);
+    box-shadow: inset 0px 0px 4px 0px #e6b03b;
+}
+
+.buildingNum {
+  font-size: 12px;
+  padding: 2px 8px;
+  color: #ffffff;
+  border-radius: 2px;
+  background: rgba(24, 31, 125, 0.7);
+  box-shadow: inset 0px 0px 4px 0px #3bb8e6;
+  cursor: pointer;
+}
+#singleBuilding {
+  position: relative;
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 8px;
+  /* 根据需要调整 padding 值 */
+  border-radius: 2px;
+  background: rgba(23, 32, 52, 0.4) linear-gradient(180deg, #6c96f0 0%, rgba(0, 0, 0, 0.5) 100%);
+  color: #fff;
+  border: 1px solid #4d95ad;
+  bottom: 2px;
+  background: #3f35f2;
+  box-shadow: inset 0px 0px 4px 0px #3bb8e6;
+}
+.beilu_three_Board_text_person_blue {
+  width: auto !important;
+  height: auto;
+  padding: 4px 12px;
+  background: rgba(18, 87, 91, 0.8);
+  white-space: nowrap;
+  display: inline-block;
+  box-shadow: inset 0px 0px 5px 0px rgba(13, 10, 0, 0.7);
+  border-radius: 1px;
+  position: absolute;
+  border: 1px solid;
+  transform: translate(-50%, -50%) scale(1);
+  border-image: linear-gradient(180deg, rgba(233, 255, 253, 1), rgba(47, 215, 193, 1), rgba(8, 106, 93, 1), rgba(18, 107, 105, 1), rgba(47, 211, 215, 1)) 1 1;
+  font-size: 14px;
+  font-family: AlibabaPuHuiTiR;
+  color: #FFFFFF;
+  line-height: 17px;
+  bottom: 26px;
+ }
+
+ .measure-container{
+  top: -20px;
+  display: flex;
+  flex-direction: row;
+ }
+
+ .area-label {
+  padding: 1px 4px 1px 4px;
+  background: linear-gradient(90deg, rgba(100, 65, 6, 0.88) 0%, rgba(255, 182, 56, 0) 100%);
+  border: 2px solid;
+  border-image: linear-gradient(268deg, rgba(255, 182, 56, 0), rgba(255, 182, 56, 1)) 1 1;
+  /* line-height: 28px; */
+  text-align: center;
+  pointer-events: none;
+  background-color: #081828;
+  color: #ffffff;
+}
+
+ .measure-close{
+  color: #ffffff;
+  font-size: 24px;
+  /* line-height: 12px; */
+  background: red;
+  /* border: 1px solid #cc0044; */
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+}
