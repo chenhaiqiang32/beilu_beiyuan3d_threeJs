@@ -4,9 +4,19 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "prepare": "husky install",
+        "minify-for-git": "node ./scripts/minify-for-git.js",
+        "restore-after-commit": "node ./scripts/restore-after-commit.js",
+
         "dev": "vite --host",
         "build": "vite build",
         "preview": "vite preview"
+    },
+    "husky": {
+        "hooks": {
+        "pre-commit": "npm run minify-for-git && git add ./src/three/index.js",
+        "post-commit": "git checkout HEAD -- ./src/three/index.js && npm run restore-after-commit"
+        }
     },
     "dependencies": {
         "point-in-polygon-hao": "^1.1.0",
@@ -16,6 +26,7 @@
     },
     "devDependencies": {
         "@types/three": "^0.164.1",
+        "husky": "^9.1.7",
         "uglify-js": "^3.19.3",
         "vite": "^4.4.5"
     },
