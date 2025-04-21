@@ -44,7 +44,7 @@ export default defineConfig({
   build: {
     manifest: false,
     sourcemap: false, // 构建后是否生成 source map 文件。如果为 true，将会创建一个独立的 source map 文件
-    outDir: "docker/nginx/dist",
+    outDir: "docs",
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),
