@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { CoreExtensions } from "./core/CoreExtensions";
-import { Subsystem,Ground,IndoorSubsystem } from "./subsystem";
+import { Subsystem, Ground, IndoorSubsystem } from "./subsystem";
 
 import { shaderUpdateTime } from "../shader/funs";
 import { TweenControls } from "../lib/tweenControls";
@@ -17,12 +17,10 @@ const mousedown = new THREE.Vector2();
 const mouseup = new THREE.Vector2();
 let clickTimer = null;
 export class Store3D extends CoreExtensions {
-
   static Default = {
-    position: new THREE.Vector3(154,265,612),
-    target: new THREE.Vector3(-446,10,-389)
+    position: new THREE.Vector3(154, 265, 612),
+    target: new THREE.Vector3(-446, 10, -389),
   };
-
 
   constructor(domElement) {
     super(domElement);
@@ -41,14 +39,15 @@ export class Store3D extends CoreExtensions {
     this.ray = new THREE.Raycaster();
     this.inDoorModel = false; // 是否搜索了未建模的建筑
 
-    const __position = Store3D.Default.position.clone().applyAxisAngle(new THREE.Vector3(0,1,0),45).multiplyScalar(0.25);
-
+    const __position = Store3D.Default.position
+      .clone()
+      .applyAxisAngle(new THREE.Vector3(0, 1, 0), 45)
+      .multiplyScalar(0.25);
 
     this.camera.position.copy(__position);
     this.controls.target.copy(Store3D.Default.target);
 
     this.controls.minDistance = 10;
-
   }
 
   setIndoorModel(state) {
@@ -107,9 +106,10 @@ export class Store3D extends CoreExtensions {
 
     this.changeSystem("ground");
 
-    this.onRenderQueue.set("elapsedTimeUpdate",scope => shaderUpdateTime(scope.elapsedTime));
+    this.onRenderQueue.set("elapsedTimeUpdate", (scope) =>
+      shaderUpdateTime(scope.elapsedTime)
+    );
     this.personsHistory = new AnimationHistory(this);
-
   }
   hideInspectionSystemIcon(param) {
     this.currentSystem.hideInspectionSystemIcon(param);
@@ -129,8 +129,7 @@ export class Store3D extends CoreExtensions {
   }
 
   /**@description 各个系统模块切换 */
-  changeSystem(systemType,building = null) {
-
+  changeSystem(systemType, building = null) {
     // 销毁fence
     this.clearFence();
     this.changeSystemCommon(systemType);
@@ -141,16 +140,13 @@ export class Store3D extends CoreExtensions {
     targetSystem.onEnter(building);
   }
   clearFence() {
-
     if (this.currentSystem && this.currentSystem.clearFence) {
       this.currentSystem.clearFence();
     }
-
   }
   clearEquipType(typeArray) {
     this.currentSystem.clearEquipType(typeArray);
   }
-
 
   changeSystemCommon(systemType) {
     /**@type {Subsystem} */
@@ -172,17 +168,21 @@ export class Store3D extends CoreExtensions {
 
     this.changeScene(targetSystem.scene);
     this.currentSystem = targetSystem;
-    this.sceneType = systemType === "ground" ? Orientation.SCENE_TYPE.OUTDOOR : Orientation.SCENE_TYPE.INDOOR;
-
+    this.sceneType =
+      systemType === "ground"
+        ? Orientation.SCENE_TYPE.OUTDOOR
+        : Orientation.SCENE_TYPE.INDOOR;
   }
   /**
    * @description 各个系统模块切换适用于搜索跟踪等情况下的切换
    * @param {string} sceneChangeType - 第一个参数切换状态
    */
-  changeSystemCustom(sceneChangeType,originId,sceneType) {
-
+  changeSystemCustom(sceneChangeType, originId, sceneType) {
     // 执行切换系统
-    const systemType = sceneType === Orientation.SCENE_TYPE.INDOOR ? "indoorSubsystem" : "ground";
+    const systemType =
+      sceneType === Orientation.SCENE_TYPE.INDOOR
+        ? "indoorSubsystem"
+        : "ground";
     this.changeSystemCommon(systemType);
 
     const targetSystem = this[systemType];
@@ -191,21 +191,30 @@ export class Store3D extends CoreExtensions {
       targetSystem.onEnter();
     } else {
       // 如果是另外情况， 执行以下方法
-      targetSystem.onChangeSystemCustom(sceneChangeType,originId,originId.slice(0,-3));
+      targetSystem.onChangeSystemCustom(
+        sceneChangeType,
+        originId,
+        originId.slice(0, -3)
+      );
     }
   }
 
   controlEvent() {
     // 改变控制器时禁用射线事件,防止卡顿
-    this.controls.addEventListener("start",() => {
-      this.setRaycasterState("mousemove",false);
+    this.controls.addEventListener("start", () => {
+      this.setRaycasterState("mousemove", false);
     });
-    this.controls.addEventListener("end",() => {
-      this.setRaycasterState("mousemove",true);
+    this.controls.addEventListener("end", () => {
+      this.setRaycasterState("mousemove", true);
     });
   }
   getCurrentOriginId() {
-    return { sceneType: this.sceneType,originId: this.indoorSubsystem.currentFloor ? (this.indoorSubsystem.currentFloor.name) : "" };
+    return {
+      sceneType: this.sceneType,
+      originId: this.indoorSubsystem.currentFloor
+        ? this.indoorSubsystem.currentFloor.name
+        : "",
+    };
   }
   setHeatmap(bool) {
     this.orientation.setHeatmap(bool);
@@ -225,7 +234,7 @@ export class Store3D extends CoreExtensions {
 
   /**开启测量功能,所有功能依赖当前所处系统 */
   startMeasuring() {
-    this.changeView(new THREE.Vector3(0,1,0),1200);
+    this.changeView(new THREE.Vector3(0, 1, 0), 1200);
     this.enableControlsRotate(false);
     this.currentSystem.startMeasuring();
     this.setCameraState(false);
@@ -239,7 +248,7 @@ export class Store3D extends CoreExtensions {
   }
   /**开启测面积功能,所有功能依赖当前所处系统 */
   startMeasureArea() {
-    this.changeView(new THREE.Vector3(0,1,0),1200);
+    this.changeView(new THREE.Vector3(0, 1, 0), 1200);
     this.enableControlsRotate(false);
     this.currentSystem.startMeasureArea();
     this.setCameraState(false);
@@ -252,7 +261,7 @@ export class Store3D extends CoreExtensions {
     this.setCameraState(this.ground.roamEnabled);
   }
   changeBoxSelect(status) {
-    this.changeView(new THREE.Vector3(0,1,0),1200);
+    this.changeView(new THREE.Vector3(0, 1, 0), 1200);
     this.enableControlsRotate(!status);
     this.ground.changeBoxSelect(status);
     if (status) {
@@ -266,26 +275,23 @@ export class Store3D extends CoreExtensions {
     this.ground.boxSelect.end();
     this.ground.boxSelect.start();
 
-    this.changeView(new THREE.Vector3(0,1,0),1200);
+    this.changeView(new THREE.Vector3(0, 1, 0), 1200);
     this.enableControlsRotate(false);
     this.setCameraState(false);
-
   }
 
-  changeView(view = new THREE.Vector3(0,1,0),length = 100) {
-
-    const position = new THREE.Vector3().addScaledVector(view,length);
+  changeView(view = new THREE.Vector3(0, 1, 0), length = 100) {
+    const position = new THREE.Vector3().addScaledVector(view, length);
 
     this.camera.position.copy(position);
 
     // this.camera.up.set(0,0,1);
 
-    this.controls.target.set(0,0,0);
-
+    this.controls.target.set(0, 0, 0);
   }
 
   resetCameraUp() {
-    this.camera.up.set(0,1,0);
+    this.camera.up.set(0, 1, 0);
   }
 
   enableControlsRotate(bool) {
@@ -303,28 +309,31 @@ export class Store3D extends CoreExtensions {
       currentSearchBuildingId = this.ground.searchBuildingId;
     }
     let currentSearchEquipId = this.currentSystem.getSearchEquipId();
-    if (currentSearchPersonId) this.currentSystem.clearSelected(currentSearchPersonId); // 关闭人员弹窗
-    if (currentSearchEquipId) this.currentSystem.clearCameraVideo(currentSearchEquipId); // 关闭摄像头的牌子
-    if (currentSearchBuildingId) this.hideBuildingDialog(currentSearchBuildingId); // 关闭建筑弹窗
+    if (currentSearchPersonId)
+      this.currentSystem.clearSelected(currentSearchPersonId); // 关闭人员弹窗
+    if (currentSearchEquipId)
+      this.currentSystem.clearCameraVideo(currentSearchEquipId); // 关闭摄像头的牌子
+    if (currentSearchBuildingId)
+      this.hideBuildingDialog(currentSearchBuildingId); // 关闭建筑弹窗
   }
   searchPerson(data) {
-    const { originId,sceneType,sceneChangeType,id } = data;
+    const { originId, sceneType, sceneChangeType, id } = data;
     if (sceneChangeType !== "noChange") {
       // 场景切换后执行搜索
-      this.changeSystemCustom(sceneChangeType,originId,sceneType);
+      this.changeSystemCustom(sceneChangeType, originId, sceneType);
       this.crossSearch.setCrossSearchId = id;
-      this.crossSearch.setCrossSearchPersonStatus(true);// 记录跨场景的搜索
+      this.crossSearch.setCrossSearchPersonStatus(true); // 记录跨场景的搜索
     } else {
       this.orientation.setSearchId(id);
       this.orientation.search();
       this.orientation.personSearchModule.setPosition();
     }
   }
-  followCheck(event,followId) {
+  followCheck(event, followId) {
     // 有跟踪的人
     let currentFollowPersonInfo =
       event.data.param.update.length &&
-      event.data.param.update.filter(child => {
+      event.data.param.update.filter((child) => {
         if (child.id === followId) {
           return child;
         }
@@ -332,29 +341,29 @@ export class Store3D extends CoreExtensions {
     if (!currentFollowPersonInfo || currentFollowPersonInfo.length === 0) {
       return false;
     }
-    let { id,sceneType,originId } = currentFollowPersonInfo[0];
-    if (sceneType === 0 && !originId.includes("F")) { // 进入未建模的建筑
+    let { id, sceneType, originId } = currentFollowPersonInfo[0];
+    if (sceneType === 0 && !originId.includes("F")) {
+      // 进入未建模的建筑
       sceneType = 1; // 进入未建模的建筑，统一切换到室外
     }
 
-    let sceneChangeType = sceneChange({ sceneType,originId });
+    let sceneChangeType = sceneChange({ sceneType, originId });
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
       this.orientation.cancelFollow();
-      this.followChangeScene({ originId,sceneType,sceneChangeType,id });
+      this.followChangeScene({ originId, sceneType, sceneChangeType, id });
     }
   }
-  followChangeScene({ originId,sceneType,sceneChangeType,id }) {
-    this.changeSystemCustom(sceneChangeType,originId,sceneType);
+  followChangeScene({ originId, sceneType, sceneChangeType, id }) {
+    this.changeSystemCustom(sceneChangeType, originId, sceneType);
     this.crossSearch.setCrossFollowId = id;
-    this.crossSearch.setCrossFollowStatus(true);// 记录跨场景的搜索
+    this.crossSearch.setCrossFollowStatus(true); // 记录跨场景的搜索
   }
   startFollow(data) {
-
     this.postprocessing.clearOutlineAll(1);
 
     // 开始跟踪
-    const { sceneChangeType,id } = data;
+    const { sceneChangeType, id } = data;
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
       this.followChangeScene(data);
@@ -377,7 +386,6 @@ export class Store3D extends CoreExtensions {
   }
 
   changeMouseEventSwitch(bool) {
-
     if (!!bool) {
       this.currentSystem.addEventListener();
     } else {
@@ -385,7 +393,6 @@ export class Store3D extends CoreExtensions {
       this.postprocessing.clearOutlineAll(1);
       this.postprocessing.clearOutlineAll(2);
     }
-
   }
 
   bindGroundEvent() {
@@ -427,12 +434,12 @@ export class Store3D extends CoreExtensions {
     this.ground.clearDangerFence();
   }
   personAlarmInit(data) {
-    const { originId,sceneType,sceneChangeType,id } = data;
+    const { originId, sceneType, sceneChangeType, id } = data;
     this.currentSystem.setDangerPerson(data); // 存储报警人员信息
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
-      this.changeSystemCustom(sceneChangeType,originId,sceneType);
-      this.crossSearch.setCrossSearchDangerPersonStatus(true);// 记录跨场景的搜索
+      this.changeSystemCustom(sceneChangeType, originId, sceneType);
+      this.crossSearch.setCrossSearchDangerPersonStatus(true); // 记录跨场景的搜索
     }
     if (sceneChangeType === "noChange") {
       // 直接搜索
@@ -446,17 +453,21 @@ export class Store3D extends CoreExtensions {
     // 隐藏指定相机
     this.currentSystem.hideCameraById(id);
   }
-  switchGatherStatus(status) { // 开启关闭聚集
+  switchGatherStatus(status) {
+    // 开启关闭聚集
     this.orientation.clusterModule.setActive(status);
   }
-  setGatherLevel(num) { // 设置聚集等级
+  setGatherLevel(num) {
+    // 设置聚集等级
     this.orientation.clusterModule.setLevel(num);
   }
-  roamEnabled(value) { // 漫游开启关闭
+  roamEnabled(value) {
+    // 漫游开启关闭
     this.ground.roamEnabled = value;
     this.ground.setCameraState(value);
   }
-  roamDuration(num) { // 漫游间隔
+  roamDuration(num) {
+    // 漫游间隔
     this.ground.roamDuration = num;
   }
   /**
@@ -464,13 +475,13 @@ export class Store3D extends CoreExtensions {
    * @param {String} data originId
    * @param {Boolean} showVisible 未建模的建筑false
    */
-  searchBuilding(data,showVisible) {
+  searchBuilding(data, showVisible) {
     // 搜索建筑
     this.ground.searchBuildingId = data; // 存入搜索数据
     if (this.sceneType === 0) {
       // 当前室内
       this.changeSystem("ground");
-      this.crossSearch.setCrossSearchBuildingStatus(true);// 记录跨场景的搜索
+      this.crossSearch.setCrossSearchBuildingStatus(true); // 记录跨场景的搜索
     } else {
       // 当前室外
       this.ground.searchBuilding(showVisible);
@@ -479,10 +490,10 @@ export class Store3D extends CoreExtensions {
   searchCamera(data) {
     // 搜索相机
 
-    const { originId,sceneType,sceneChangeType,id } = data;
+    const { originId, sceneType, sceneChangeType, id } = data;
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
-      this.changeSystemCustom(sceneChangeType,originId,sceneType);
+      this.changeSystemCustom(sceneChangeType, originId, sceneType);
       this.currentSystem.setSearchCameraId(id); // 记录搜索相机信息
     }
     if (sceneChangeType === "noChange") {
@@ -493,10 +504,10 @@ export class Store3D extends CoreExtensions {
   searchInspectionSystem(data) {
     // 搜索相机
 
-    const { originId,sceneType,sceneChangeType,id } = data;
+    const { originId, sceneType, sceneChangeType, id } = data;
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
-      this.changeSystemCustom(sceneChangeType,originId,sceneType);
+      this.changeSystemCustom(sceneChangeType, originId, sceneType);
       this.currentSystem.setSearchInspectionSystemId(id); // 记录搜索相机信息
     }
     if (sceneChangeType === "noChange") {
@@ -506,15 +517,22 @@ export class Store3D extends CoreExtensions {
   }
 
   search(data) {
-
     this.clearSearch(); // 清除现有搜索数据
 
     if (!data) return;
 
-    const { type,sceneType,originId,id,filter,sceneChangeType,inDoorModel } = data;
+    const {
+      type,
+      sceneType,
+      originId,
+      id,
+      filter,
+      sceneChangeType,
+      inDoorModel,
+    } = data;
     if (!inDoorModel) {
       // 搜索人/设备在未建模的建筑里面
-      this.searchBuilding(originId,false);
+      this.searchBuilding(originId, false);
       this.setIndoorModel(true);
       return false;
     }
@@ -530,26 +548,25 @@ export class Store3D extends CoreExtensions {
     if (type === "personDanger") return this.personAlarmInit(data);
 
     if (type === "inspectionSystem") return this.searchInspectionSystem(data);
-
   }
   searchInspection(data) {
     // 搜索巡检
 
-    const { originId,sceneType,sceneChangeType,id,name,position } = data;
-    this.currentSystem.setSearchInspection({ id,name,position }); // 记录搜索信息
+    const { originId, sceneType, sceneChangeType, id, name, position } = data;
+    this.currentSystem.setSearchInspection({ id, name, position }); // 记录搜索信息
     if (sceneChangeType !== "noChange") {
       // 做了场景切换
-      this.changeSystemCustom(sceneChangeType,originId,sceneType);
-      this.crossSearch.setCrossSearchInspectionStatus(true);// 记录跨场景的搜索
+      this.changeSystemCustom(sceneChangeType, originId, sceneType);
+      this.crossSearch.setCrossSearchInspectionStatus(true); // 记录跨场景的搜索
     }
     if (sceneChangeType === "noChange") {
       // 直接搜索
       this.currentSystem.searchInspection();
     }
   }
-  processingEquipment(data,type) {
+  processingEquipment(data, type) {
     // 设备系统
-    this.currentSystem.processingEquipData(data,type);
+    this.currentSystem.processingEquipData(data, type);
   }
   changeLighting(param) {
     this.currentSystem.updateLightingPattern(param);
@@ -568,15 +585,16 @@ export class Store3D extends CoreExtensions {
   endWander() {
     this.currentSystem.endWander();
   }
-  getMouse = (event,vector) => {
-    const { left,top,width,height } = this.domElement.getBoundingClientRect();
+  getMouse = (event, vector) => {
+    const { left, top, width, height } =
+      this.domElement.getBoundingClientRect();
     vector.x = ((event.clientX - left) / width) * 2 - 1;
     vector.y = -((event.clientY - top) / height) * 2 + 1;
   };
   // 定制化鼠标右键双击
   rightDblClickListener(fn) {
     const rightDblClick = this.addEventListener("mouseup");
-    const del = rightDblClick.add(e => {
+    const del = rightDblClick.add((e) => {
       if (e.button !== 2) {
         return;
       }
@@ -594,15 +612,15 @@ export class Store3D extends CoreExtensions {
   addClickCustom(fn) {
     let timer = null;
     const down = this.addEventListener("mousedown");
-    const downCancel = down.add(e => {
+    const downCancel = down.add((e) => {
       if (e.button === 2) return;
-      this.getMouse(e,mousedown);
+      this.getMouse(e, mousedown);
     });
     const up = this.addEventListener("mouseup");
     let ray;
-    const upCancel = up.add(e => {
+    const upCancel = up.add((e) => {
       if (e.button === 2) return; // 右键不触发
-      this.getMouse(e,mouseup);
+      this.getMouse(e, mouseup);
       if (!mousedown.equals(mouseup)) return; //鼠标down和up位置不重合不触发
       if (timer) {
         //连续点击时不触发
@@ -611,11 +629,11 @@ export class Store3D extends CoreExtensions {
       } else {
         timer = setTimeout(() => {
           ray = new THREE.Raycaster();
-          ray.setFromCamera(mouseup,this.camera);
+          ray.setFromCamera(mouseup, this.camera);
           fn(ray);
           clearTimeout(timer);
           timer = null;
-        },250);
+        }, 250);
       }
     });
     const clear = () => {
