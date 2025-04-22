@@ -261,6 +261,7 @@ export class Store3D extends CoreExtensions {
     this.setCameraState(this.ground.roamEnabled);
   }
   changeBoxSelect(status) {
+    console.log("test");
     this.changeView(new THREE.Vector3(0, 1, 0), 1200);
     this.enableControlsRotate(!status);
     this.ground.changeBoxSelect(status);
